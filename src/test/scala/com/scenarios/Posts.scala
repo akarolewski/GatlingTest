@@ -13,9 +13,6 @@ object Posts {
 
   private val validStatuses: Seq[Int] = Seq(OK)
 
-  var userId: Int = _
-  var maxId: Int = _
-
   def fetchPosts(): ChainBuilder = exec(http("Fetch all posts")
     .get("/posts")
     .check(jsonPath("$..userId").ofType[Int].findAll.transform(list => list.maxBy(id => id)).saveAs("maxUserId"))
